@@ -1,0 +1,17 @@
+{
+  "title": "Feature X: parallel build",
+  "refresh_s": 10,
+  "lines": 14,
+  "hide_done_after_s": 600,
+  "lanes": [
+    {"id": "P-01", "title": "Rust core: signals + state machine", "agent": "agent A (herdr)",
+     "output": {"herdr": "w1:p2"}, "repo": "~/work/proj-p01", "base": "main", "done_file": "DONE-P-01.md"},
+    {"id": "P-02", "title": "API + persistence", "agent": "agent B (tmux)",
+     "output": {"tmux": "build:p02"}, "repo": "~/work/proj-p02", "base": "main", "done_file": "DONE-P-02.md"},
+    {"id": "P-03", "title": "UI page", "agent": "agent C (log file)",
+     "output": {"file": "~/work/logs/p03.log"}, "repo": "~/work/proj-p03", "base": "main"},
+    {"id": "P-04", "title": "Test suite on the merged tip", "agent": "CI-ish",
+     "output": {"command": ["tail", "-n", "40", "/tmp/suite.log"]}},
+    {"id": "P-05", "title": "Deploy", "agent": "unassigned", "after": "P-01, P-02"}
+  ]
+}
